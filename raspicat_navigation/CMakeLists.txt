@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(raspicat_navigation)
+project(raspicat_nav)
 
 set(CMAKE_CXX_FLAGS "-std=c++14 -O3 ${CMAKE_CXX_FLAGS}")
 
