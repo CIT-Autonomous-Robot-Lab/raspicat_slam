@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>raspicat_navigation</name>
+  <name>raspicat_nav</name>
   <version>0.1.0</version>
   <description>The raspicat_navigation package</description>
   <maintainer email="support@rt-net.jp">RT Corporation</maintainer>
