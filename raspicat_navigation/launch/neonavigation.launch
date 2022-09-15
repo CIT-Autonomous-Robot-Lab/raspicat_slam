@@ -19,7 +19,7 @@
   <arg name="output_info"               default="screen"/>
 
   <!-- Neonavigation -->
-  <rosparam command="load" file="$(find raspicat_navigation)/config/param/navigate.yaml"/>
+  <rosparam command="load" file="$(find raspicat_nav)/config/param/navigate.yaml"/>
 
   <node pkg="planner_cspace" type="planner_3d" name="planner_3d" clear_params="true" output="$(arg output_info)">
     <param name="use_path_with_velocity" value="$(arg use_path_with_velocity)"/>

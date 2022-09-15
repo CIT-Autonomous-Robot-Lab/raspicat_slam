@@ -18,7 +18,7 @@
   </node>
   
   <!-- Amcl -->
-  <include file="$(find raspicat_navigation)/launch/amcl.launch">
+  <include file="$(find raspicat_nav)/launch/amcl.launch">
     <arg name="initial_pose_x" value="0.0"/>
     <arg name="initial_pose_y" value="0.0"/>
     <arg name="initial_pose_a" value="0.0"/>
@@ -26,11 +26,11 @@
 
   <!-- Move base -->
   <group if="$(eval navigation=='move_base')">
-    <include file="$(find raspicat_navigation)/launch/move_base.launch">
+    <include file="$(find raspicat_nav)/launch/move_base.launch">
       <arg name="move_forward_only" value="$(arg move_forward_only)"/>
     </include>
 
-    <node pkg="raspicat_navigation" name="lightsensors_to_laserscan_node" type="lightsensors_to_laserscan_node" 
+    <node pkg="raspicat_nav" name="lightsensors_to_laserscan_node" type="lightsensors_to_laserscan_node" 
           output="screen">
       <param name="left_side_usensor_frame_id"        value="left_side_usensor_link"/>
       <param name="left_front_usensor_frame_id"       value="left_front_usensor_link"/>
@@ -44,7 +44,7 @@
 
   <!-- Neonavigation -->
   <group if="$(eval navigation=='neonav')">
-    <include file="$(find raspicat_navigation)/launch/neonavigation.launch">
+    <include file="$(find raspicat_nav)/launch/neonavigation.launch">
       <arg name="map_topic" value="$(arg navigation_map_topic)"/>
     </include>
   </group>
@@ -52,13 +52,13 @@
   <!-- Rviz -->
   <group if="$(eval open_rviz==true and navigation=='move_base')"> 
     <node pkg="rviz" type="rviz" name="rviz" required="true"
-      args="-d $(find raspicat_navigation)/config/rviz/move_base.rviz">
+      args="-d $(find raspicat_nav)/config/rviz/move_base.rviz">
     </node>
   </group>
   
   <group if="$(eval open_rviz==true and navigation=='neonav')"> 
     <node pkg="rviz" type="rviz" name="rviz" required="true"
-      args="-d $(find raspicat_navigation)/config/rviz/neonav.rviz">
+      args="-d $(find raspicat_nav)/config/rviz/neonav.rviz">
     </node>
   </group>
 </launch>
