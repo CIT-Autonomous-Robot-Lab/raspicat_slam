@@ -7,7 +7,7 @@
   <arg name="navigation_map_file"   default="$(find raspicat_slam)/config/maps/iscas_museum_map.yaml"/>
   <arg name="navigation_map_topic"  default="/navigation_map"/>
 
-  <arg name="navigation"            default="move_base" doc="navigation type [move_base, neonav]"/>
+  <arg name="navigation"            default="move_base" doc="navigation type [move_base, neonav, value_iteration]"/>
 
   <!-- Map server -->
   <node pkg="map_server" name="mcl_map_server" type="map_server" args="$(arg mcl_map_file)"/>
@@ -49,6 +49,11 @@
     </include>
   </group>
 
+  <!-- value_iteration -->
+  <group if="$(eval navigation=='value_iteration')">
+    <include file="$(find raspicat_nav)/launch/value_iteration.launch"/>
+  </group>
+
   <!-- Rviz -->
   <group if="$(eval open_rviz==true and navigation=='move_base')"> 
     <node pkg="rviz" type="rviz" name="rviz" required="true"
@@ -61,4 +66,10 @@
       args="-d $(find raspicat_nav)/config/rviz/neonav.rviz">
     </node>
   </group>
+
+  <group if="$(eval open_rviz==true and navigation=='value_iteration')"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+      args="-d $(find value_iteration)/config/conf.rviz"/>
+  </group>
+ 
 </launch>
