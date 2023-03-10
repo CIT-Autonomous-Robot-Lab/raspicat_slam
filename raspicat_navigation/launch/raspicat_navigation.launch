@@ -7,8 +7,12 @@
   <arg name="navigation_map_file"   default="$(find raspicat_slam)/config/maps/iscas_museum_map.yaml"/>
   <arg name="navigation_map_topic"  default="/navigation_map"/>
 
-  <arg name="navigation"            default="move_base" doc="navigation type [move_base, neonav, value_iteration]"/>
+  <arg name="navigation"            default="move_base" doc="navigation type [move_base, neonav, value_iteration, value_iteration_no_local, value_iteration_after_planning_no_local]"/>
 
+  <arg name="mcl"                   default="amcl" doc="model type [amcl, emcl2]"/>
+  <arg name="mcl_init_pose_x"       default="0.0"/>
+  <arg name="mcl_init_pose_y"       default="0.0"/>
+  <arg name="mcl_init_pose_a"       default="0.0"/>
   <!-- Map server -->
   <node pkg="map_server" name="mcl_map_server" type="map_server" args="$(arg mcl_map_file)"/>
 
@@ -16,12 +20,20 @@
     <remap from="map"         to="$(arg navigation_map_topic)"/>
     <remap from="static_map"  to="/navigation_static_map"/>
   </node>
-  
+
   <!-- Amcl -->
-  <include file="$(find raspicat_nav)/launch/amcl.launch">
-    <arg name="initial_pose_x" value="0.0"/>
-    <arg name="initial_pose_y" value="0.0"/>
-    <arg name="initial_pose_a" value="0.0"/>
+  <include if="$(eval mcl=='amcl')" file="$(find raspicat_nav)/launch/amcl.launch">
+    <arg name="initial_pose_x" value="-9.738"/>
+    <arg name="initial_pose_y" value="-63.550"/>
+    <arg name="initial_pose_a" value="0.931"/>
+  </include>
+
+  <!-- Emcl2 -->
+  <include if="$(eval mcl=='emcl2')" file="$(find raspicat_nav)/launch/emcl2.launch">
+  <!--  <arg name="scan_topic"      value="scan_filtered"/> -->
+    <arg name="initial_pose_x" value="-9.738"/>
+    <arg name="initial_pose_y" value="-63.550"/>
+    <arg name="initial_pose_a" value="0.931"/>
   </include>
 
   <!-- Move base -->
@@ -54,6 +66,16 @@
     <include file="$(find raspicat_nav)/launch/value_iteration.launch"/>
   </group>
 
+  <!-- value_iteration_no_local -->
+  <group if="$(eval navigation=='value_iteration_no_local')">
+    <include file="$(find raspicat_nav)/launch/value_iteration_no_local.launch"/>
+  </group>
+
+  <!-- value_iteration_after_planning_no_local -->
+  <group if="$(eval navigation=='value_iteration_after_planning_no_local')">
+    <include file="$(find raspicat_nav)/launch/value_iteration_after_planning_no_local.launch"/>
+  </group>
+
   <!-- Rviz -->
   <group if="$(eval open_rviz==true and navigation=='move_base')"> 
     <node pkg="rviz" type="rviz" name="rviz" required="true"
@@ -68,6 +90,16 @@
   </group>
 
   <group if="$(eval open_rviz==true and navigation=='value_iteration')"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+      args="-d $(find value_iteration)/config/conf.rviz"/>
+  </group>
+ 
+  <group if="$(eval open_rviz==true and navigation=='value_iteration_no_local')"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+      args="-d $(find value_iteration)/config/conf.rviz"/>
+  </group>
+ 
+  <group if="$(eval open_rviz==true and navigation=='value_iteration_after_planning_no_local')"> 
     <node pkg="rviz" type="rviz" name="rviz" required="true"
       args="-d $(find value_iteration)/config/conf.rviz"/>
   </group>
