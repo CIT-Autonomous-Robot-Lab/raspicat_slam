@@ -6,7 +6,7 @@
   <arg name="initial_pose_a"  default="0.0"/>
 
   <!-- Emcl2 -->
-  <node pkg="emcl2" type="emcl2_node" name="emcl2_node" output="screen">
+  <node pkg="emcl2" type="emcl2_node" name="emcl2_node" output="log">
     <rosparam command="load" file="$(find raspicat_nav)/config/param/emcl2.yaml"/>
     <param name="initial_pose_x"                  value="$(arg initial_pose_x)"/>
     <param name="initial_pose_y"                  value="$(arg initial_pose_y)"/>

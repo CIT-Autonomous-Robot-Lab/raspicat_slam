@@ -23,17 +23,17 @@
 
   <!-- Amcl -->
   <include if="$(eval mcl=='amcl')" file="$(find raspicat_nav)/launch/amcl.launch">
-    <arg name="initial_pose_x" value="-9.738"/>
-    <arg name="initial_pose_y" value="-63.550"/>
-    <arg name="initial_pose_a" value="0.931"/>
+    <arg name="initial_pose_x" value="-9.357"/>
+    <arg name="initial_pose_y" value="-63.153"/>
+    <arg name="initial_pose_a" value="-0.056"/>
   </include>
 
   <!-- Emcl2 -->
   <include if="$(eval mcl=='emcl2')" file="$(find raspicat_nav)/launch/emcl2.launch">
-  <!--  <arg name="scan_topic"      value="scan_filtered"/> -->
-    <arg name="initial_pose_x" value="-9.738"/>
-    <arg name="initial_pose_y" value="-63.550"/>
-    <arg name="initial_pose_a" value="0.931"/>
+		  <!--  <arg name="scan_topic"     value="scan_filtered"/> --> 
+    <arg name="initial_pose_x" value="-9.357"/>
+    <arg name="initial_pose_y" value="-63.153"/>
+    <arg name="initial_pose_a" value="-0.056"/>
   </include>
 
   <!-- Move base -->

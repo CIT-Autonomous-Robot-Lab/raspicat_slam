@@ -10,6 +10,7 @@
     <param name="goal_margin_theta"       value="15" />
     <param name="online"                  value="true" />
     <param name="map_type"                value="occupancy" />
+    <remap from="static_map"  to="/navigation_static_map"/>
   </node>
   <node pkg="value_iteration" name="vi_controller_turtle_env" type="vi_controller.py" output="screen" required="true" /> 
 </launch>

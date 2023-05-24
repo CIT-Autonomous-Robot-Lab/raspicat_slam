@@ -3,13 +3,14 @@
   <rosparam command="load" file="$(find raspicat_nav)/config/param/value_iteration.yaml" />
   <node pkg="value_iteration" name="vi_node" type="vi_node" output="screen" required="true">
     <param name="theta_cell_num"          value="60" />
-    <param name="thread_num"              value="4" />
+    <param name="thread_num"              value="8" />
     <param name="safety_radius"           value="0.2" />
     <param name="safety_radius_penalty"   value="100000" />
     <param name="goal_margin_radius"      value="0.3" />
     <param name="goal_margin_theta"       value="15" />
     <param name="online"                  value="true" />
     <param name="map_type"                value="occupancy" />
+    <remap from="static_map"  to="/navigation_static_map"/>
   </node>
   <node pkg="value_iteration" name="vi_controller_turtle_env" type="vi_controller.py" output="screen" required="true" /> 
 </launch>
